@@ -1,0 +1,14 @@
+todo.add:
+  path: '/todo/add'
+  defaults:
+    _form:  '\Drupal\todo\Form\TodoAddForm'
+    _title: 'Add new'
+  requirements:
+    _permission: 'access content'
+todo.list:
+  path: '/todo'
+  defaults:
+    _controller: '\Drupal\todo\Controller\TodoListController::list'
+    _title: 'Todo List'
+  requirements:
+    _permission: 'access content'

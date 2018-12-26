@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Install function for todo module.
+ */
+
+ /**
+  * Implements hook_schema().
+  */
+  function todo_schema() {
+
+      $schema['todo_data'] = [
+          'description' => '',
+          'fields' => [
+              'tid' => [
+                  'description' => 'The primary identifier for a todo.',
+                  'type' => 'serial',
+                  'unsigned' => TRUE,
+                  'not null' => TRUE,
+              ],
+              'text' => [
+                  'description' => 'Todo text',
+                  'type' => 'varchar',
+                  'length' => 500,
+                  'not null' => TRUE,
+                  'default' => '',
+              ],
+              'priority' => [
+                  'description' => 'Todo priority 1. Low 2. Normal 3. High',
+                  'type' => 'varchar',
+                  'length' => 7,
+                  'not null' => TRUE,
+                  'default' => 'low',
+              ],
+              'status' => [
+                  'description' => 'Todo priority 1. Pending 2. Completed',
+                  'type' => 'varchar',
+                  'length' => 9,
+                  'not null' => TRUE,
+                  'default' => 'pending',
+              ],
+          ],
+          'primary key' => [
+            'tid',
+            ],
+      ];
+
+      return $schema;
+  }
