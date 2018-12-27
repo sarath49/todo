@@ -10,6 +10,8 @@
   */
   function todo_schema() {
 
+      $objDateTime = new DateTime('NOW');
+
       $schema['todo_data'] = [
           'description' => '',
           'fields' => [
@@ -32,6 +34,12 @@
                   'length' => 7,
                   'not null' => TRUE,
                   'default' => 'low',
+              ],
+              'date' => [
+                  'description' => 'Todo date',
+                  'type' => 'int',
+                  'not null' => TRUE,
+                  'default' => 0,
               ],
               'status' => [
                   'description' => 'Todo priority 1. Pending 2. Completed',

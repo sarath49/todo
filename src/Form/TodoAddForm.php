@@ -3,6 +3,7 @@ namespace Drupal\todo\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Implements a simple form.
@@ -23,6 +24,13 @@ class TodoAddForm extends FormBase{
             '#type' => 'textfield',
             '#title' => $this->t('Add task'),
             '#description' => $this->t('Enter task to do'),
+            '#required' => TRUE,
+        ];
+
+        $form['date'] = [
+            '#type' => 'date',
+            '#title' => $this->t('Select Date'),
+            '#description' => $this->t('Enter task date'),
             '#required' => TRUE,
         ];
 
@@ -69,9 +77,16 @@ class TodoAddForm extends FormBase{
         $connection->insert('todo_data')
           ->fields([
              'text' => $form_state->getValue('text'),
-             'priority' => $form_state->getValue('priority')
+             'priority' => $form_state->getValue('priority'),
+             'date' => strtotime($form_state->getValue('date')),
          ])
           ->execute();
+
+        if ($user = \Drupal::currentUser()) {
+            $tags = ['user:' . $user->id()];
+            Cache::invalidateTags($tags);
+        }
+
         drupal_set_message($this->t(' %text is added.', ['%text' => $form_state->getValue('text')]));
     }
 }

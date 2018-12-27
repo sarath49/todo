@@ -3,3 +3,6 @@ description: Todo module
 core: 8.x
 type: module
 package: Custom
+
+dependencies:
+ - drupal:quickedit
